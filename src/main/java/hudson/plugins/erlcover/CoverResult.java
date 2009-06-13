@@ -44,8 +44,8 @@ public class CoverResult {
 		return applications.get(application).keys();
 	}
 
-	public String total_for(String name) {
-		Hashtable<String, Summary> modules = applications.get(name);
+	public String total_for(String application) {
+		Hashtable<String, Summary> modules = applications.get(application);
 		int total = 0;
 		for (Summary summary : modules.values()) {
 			total += summary.called + summary.uncalled;
@@ -53,8 +53,8 @@ public class CoverResult {
 		return String.valueOf(total);
 	}
 
-	public String called_for(String name) {
-		Hashtable<String, Summary> modules = applications.get(name);
+	public String called_for(String application) {
+		Hashtable<String, Summary> modules = applications.get(application);
 		int total = 0;
 		for (Summary summary : modules.values()) {
 			total += summary.called;
@@ -66,8 +66,8 @@ public class CoverResult {
 		return String.valueOf(100 - Integer.parseInt(coverage_for(name)));
 	}
 
-	public String coverage_for(String name) {
-		Hashtable<String, Summary> modules = applications.get(name);
+	public String coverage_for(String application) {
+		Hashtable<String, Summary> modules = applications.get(application);
 		int called = 0;
 		int uncalled = 0;
 		for (Summary summary : modules.values()) {

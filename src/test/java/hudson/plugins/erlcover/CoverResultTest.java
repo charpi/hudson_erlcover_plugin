@@ -49,10 +49,20 @@ public class CoverResultTest extends TestCase {
 		}
 	}
 
-	public void test_total_for_existing_module() throws Exception {
+	public void test_total_for_existing_application() throws Exception {
 		assertEquals("54", result.total_for("sample_rake"));
 	}
 
+	public void test_called_for_existing_application() throws Exception {
+		assertEquals("2", result.called_for("sample_rake"));
+	}
+	
+	public void test_coverage_for_existing_application() throws Exception {
+		assertEquals("3", result.coverage_for("sample_rake"));
+		assertEquals("97", result.uncoverage_for("sample_rake"));
+	}
+	
+	
 	private Enumeration<String> application_names_for_test() {
 		Hashtable<String, Object> applications = new Hashtable<String, Object>();
 		applications.put("sample_rake", this);
