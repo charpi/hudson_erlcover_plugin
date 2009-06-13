@@ -1,0 +1,2 @@
+<?xml version="1.0"?><cover>
+<module application="sample_rake" name="Data"><lines called="0" uncalled="44"/></module><module application="sample_rake" name="second"><lines called="1" uncalled="0"/></module><module application="sample_rake" name="sample_rake_sup"><lines called="0" uncalled="3"/></module><module application="sample_rake" name="sample_rake_app"><lines called="0" uncalled="4"/></module><module application="sample_rake" name="sample"><lines called="1" uncalled="1"/></module></cover>

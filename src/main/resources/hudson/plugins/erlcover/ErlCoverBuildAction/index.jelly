@@ -1,0 +1,105 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:erlcover="/hudson/plugins/erlcover/tags">
+  <l:layout xmlns:erlcover="/hudson/plugins/erlcover/tags" css="/plugin/erlcover/css/style.css">
+    
+    <st:include it="${it.owner}" page="sidepanel.jelly" />
+    
+    <l:main-panel>
+      <h1>${it.displayName}</h1>
+      
+      <div style="margin-top: 1em; margin-bottom: 1em;">
+    	${it.description}
+      </div>
+      
+      <table class="report">
+        <thead>
+          <tr>
+            <td class='heading'>Application name</td>
+		    <td class='heading'>Total instructions</td>
+	    	<td class='heading'>Instructions called</td>
+	   		<td class='heading'>Code coverage</td>
+	  </tr>
+	</thead>
+	<tbody>
+	  
+	  <j:invoke  var="applicationNames" on="${it.results}" method="applicationNames">
+ 	  </j:invoke>
+	  
+	  <j:forEach var="application" items="${applicationNames}">
+	    <j:invoke  var="total" on="${it.results}" method="total_for">
+	      <j:arg type="java.lang.String" value="${application}"/>
+	    </j:invoke>
+	    <j:invoke  var="called" on="${it.results}" method="called_for">
+	      <j:arg type="java.lang.String" value="${application}"/>
+	    </j:invoke>
+	    <j:invoke  var="uncoverage" on="${it.results}" method="uncoverage_for">
+	      <j:arg type="java.lang.String" value="${application}"/>
+	    </j:invoke>
+	    <j:invoke  var="coverage" on="${it.results}" method="coverage_for">
+	      <j:arg type="java.lang.String" value="${application}"/>
+	    </j:invoke>
+	    
+	    <tr>
+	      <td class="line"><a href="#${application}">${application}</a></td>
+	      <td class="line">${total}</td>
+	      <td class="line">${called}</td>
+	      <erlcover:tableGraph coverage="${coverage}" uncoverage="${uncoverage}" />
+	    </tr>
+	  </j:forEach>
+	</tbody>
+      </table>
+      
+      <j:invoke  var="applicationNames" on="${it.results}" method="applicationNames">
+      </j:invoke>
+      <j:forEach var="application" items="${applicationNames}">
+	<a name='${application}'>
+	  <table class="report">
+            <thead>
+              <tr>
+            	<td colspan='4' align='center'><h2>${application}</h2></td>
+              </tr>
+              <tr>
+            	<td class='heading'>Module name</td>
+		<td class='heading'>Total instructions</td>
+		<td class='heading'>Instructions called</td>
+		<td class='heading'>Code coverage</td>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <j:invoke  var="moduleNames" on="${it.results}" method="moduleNames">
+ 		<j:arg type="java.lang.String" value="${application}"/>
+	      </j:invoke>
+	      
+	      <j:forEach var="module" items="${moduleNames}">
+		<j:invoke  var="total" on="${it.results}" method="total_for">
+		  <j:arg type="java.lang.String" value="${application}"/>
+		  <j:arg type="java.lang.String" value="${module}"/>
+		</j:invoke>
+		<j:invoke  var="called" on="${it.results}" method="called_for">
+		  <j:arg type="java.lang.String" value="${application}"/>
+		  <j:arg type="java.lang.String" value="${module}"/>
+		</j:invoke>
+		<j:invoke  var="uncoverage" on="${it.results}" method="uncoverage_for">
+		  <j:arg type="java.lang.String" value="${application}"/>
+		  <j:arg type="java.lang.String" value="${module}"/>
+		</j:invoke>
+		<j:invoke  var="coverage" on="${it.results}" method="coverage_for">
+		  <j:arg type="java.lang.String" value="${application}"/>
+		  <j:arg type="java.lang.String" value="${module}"/>
+		</j:invoke>
+		
+		<tr>
+		  <td class="line">${module}</td>
+		  <td class="line">${total}</td>
+		  <td class="line">${called}</td>
+		  <erlcover:tableGraph coverage="${coverage}" uncoverage="${uncoverage}"/>
+		</tr>
+	      </j:forEach>
+	    </tbody>
+	  </table>
+	</a>
+      </j:forEach>			
+      <!-- report -->
+    </l:main-panel>
+  </l:layout>
+</j:jelly>

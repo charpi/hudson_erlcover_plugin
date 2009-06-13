@@ -1,0 +1,19 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+  
+  <td class="line">
+    <table cellspacing='0' cellpadding='0' align='right'>
+      <tr>
+	<td class='coverage_total'>${attrs.coverage}%</td>
+	<td>
+	  <table cellspacing='0' class='percent_graph' cellpadding='0' width='100'>
+	    <tr>
+	      <td class='covered' width='${attrs.coverage}'/>
+	      <td class='uncovered' width='${attrs.uncoverage}'/>
+	    </tr>
+	  </table>
+	</td>
+      </tr>
+    </table>
+  </td>
+</j:jelly>
