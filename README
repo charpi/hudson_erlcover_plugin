@@ -1,0 +1,19 @@
+= Objective = 
+
+This hudson plugin provides a way to report Erlang code coverage results.
+
+Those results are read from an XML file which got this structure:
+
+<?xml version="1.0"?>
+<cover>
+	<module application="first_app" name="first_module">
+		<lines called="0" uncalled="44"/>
+	</module>
+	<module application="first_app" name="second_module">
+		<lines called="1" uncalled="0"/>
+	</module>
+	<module application="second_app" name="other_module">
+		<lines called="0" uncalled="3"/>
+	</module>
+</cover>
+
