@@ -62,7 +62,6 @@ public class CoverResultTest extends TestCase {
 		assertEquals("97", result.uncoverage_for("sample_rake"));
 	}
 	
-	
 	private Enumeration<String> application_names_for_test() {
 		Hashtable<String, Object> applications = new Hashtable<String, Object>();
 		applications.put("sample_rake", this);
