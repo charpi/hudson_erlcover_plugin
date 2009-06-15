@@ -54,17 +54,49 @@ public class CoverResultTest extends TestCase {
 		}
 	}
 
-	public void test_total_for_existing_application() throws Exception {
-		assertEquals("54", result.total_for("sample_rake"));
-	}
-
-	public void test_called_for_existing_application() throws Exception {
-		assertEquals("2", result.called_for("sample_rake"));
+	public void test_total_as_string() throws Exception {
+		assertEquals("100", result.total_as_string());
 	}
 	
-	public void test_coverage_for_existing_application() throws Exception {
-		assertEquals("3", result.coverage_for("sample_rake"));
-		assertEquals("97", result.uncoverage_for("sample_rake"));
+	public void test_called_as_string() throws Exception {
+		assertEquals("13", result.called_as_string());
+	}
+	
+	public void test_coverage_as_string() throws Exception {
+		Integer coverage = new Integer(13*100/100);
+		Integer uncoverage = new Integer(100 - coverage);
+		assertEquals(coverage.toString(), result.coverage_as_string());
+		assertEquals(uncoverage.toString(), result.uncoverage_as_string());
+	}
+
+	public void test_total_as_string_for_existing_application() throws Exception {
+		assertEquals("65", result.total_as_string_for("sample_rake"));
+	}
+
+	public void test_called_as_string_for_existing_application() throws Exception {
+		assertEquals("13", result.called_as_string_for("sample_rake"));
+	}
+	
+	public void test_coverage_as_string_for_existing_application() throws Exception {
+		Integer coverage = new Integer(13*100/65);
+		Integer uncoverage = new Integer(100 - coverage);
+		assertEquals(coverage.toString(), result.coverage_as_string_for("sample_rake"));
+		assertEquals(uncoverage.toString(), result.uncoverage_as_string_for("sample_rake"));
+	}
+	
+	public void test_total_as_string_for_a_module() throws Exception {
+		assertEquals("55", result.total_as_string_for("sample_rake","Data"));
+	}
+	
+	public void test_called_as_string_for_a_module() throws Exception {
+		assertEquals("11", result.called_as_string_for("sample_rake","Data"));
+	}
+	
+	public void test_coverage_as_string_for_a_module() throws Exception {
+		Integer coverage = new Integer(11*100/55);
+		Integer uncoverage = new Integer(100 - coverage);
+		assertEquals(coverage.toString(), result.coverage_as_string_for("sample_rake","Data"));
+		assertEquals(uncoverage.toString(), result.uncoverage_as_string_for("sample_rake","Data"));
 	}
 	
 	private Enumeration<String> application_names_for_test() {

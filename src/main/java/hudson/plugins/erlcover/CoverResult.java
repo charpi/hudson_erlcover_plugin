@@ -49,29 +49,32 @@ public class CoverResult {
 		return applications.get(application).keys();
 	}
 
-	public String total_for(String application) {
-		Hashtable<String, Summary> modules = applications.get(application);
-		int total = 0;
-		for (Summary summary : modules.values()) {
-			total += summary.called + summary.uncalled;
-		}
-		return String.valueOf(total);
+	
+	public String total_as_string() {
+		return String.valueOf(total());
 	}
-
-	public String called_for(String application) {
-		Hashtable<String, Summary> modules = applications.get(application);
-		int total = 0;
-		for (Summary summary : modules.values()) {
-			total += summary.called;
-		}
-		return String.valueOf(total);
+	
+	public String called_as_string() {
+		return String.valueOf(called());
 	}
-
-	public String uncoverage_for(String name) {
-		return String.valueOf(100 - Integer.parseInt(coverage_for(name)));
+	
+	public String coverage_as_string() {
+		return String.valueOf(coverage());
 	}
-
-	public String coverage_for(String application) {
+	
+	public String uncoverage_as_string() {
+		return String.valueOf(100 - coverage());
+	}
+	
+	public String total_as_string_for(String application) {
+		return String.valueOf(total_for(application));
+	}
+	
+	public String called_as_string_for(String application) {
+		return String.valueOf(called_for(application));
+	}
+	
+	public int coverage_for(String application) {
 		Hashtable<String, Summary> modules = applications.get(application);
 		int called = 0;
 		int uncalled = 0;
@@ -79,29 +82,33 @@ public class CoverResult {
 			called += summary.called;
 			uncalled += summary.uncalled;
 		}
-		return String.valueOf(called * 100 / (called + uncalled));
+		return called * 100 / (called + uncalled);
 	}
 
-	public String total_for(String application, String module) {
-		Summary summary = applications.get(application).get(module);
-		return String.valueOf(summary.called + summary.uncalled);
+	public String coverage_as_string_for(String application) {
+		return String.valueOf(coverage_for(application));	
+	}
+	
+	public String uncoverage_as_string_for(String name) {
+		return String.valueOf(100 - coverage_for(name));
 	}
 
-	public String called_for(String application, String module) {
+	public String total_as_string_for(String application, String module) {
+		return String.valueOf(total_for(application, module));
+	}
+
+	public String called_as_string_for(String application, String module) {
 		Summary summary = applications.get(application).get(module);
 		return String.valueOf(summary.called);
 	}
 
-	public String uncoverage_for(String application, String module) {
-
-		return String.valueOf(100 - Integer.parseInt(coverage_for(application,
+	public String uncoverage_as_string_for(String application, String module) {
+		return String.valueOf(100 - Integer.parseInt(coverage_as_string_for(application,
 				module)));
 	}
-
-	public String coverage_for(String application, String module) {
-		Summary summary = applications.get(application).get(module);
-		return String.valueOf(summary.called * 100
-				/ (summary.called + summary.uncalled));
+	
+	public String coverage_as_string_for(String application, String module) {
+		return String.valueOf(coverage_for(application, module));
 	}
 
 	private void parse(String rootDirectory, String string) {
@@ -141,5 +148,56 @@ public class CoverResult {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private int total() {
+		Enumeration<String> applicationNames = applicationNames();
+		int total = 0;
+		while(applicationNames.hasMoreElements()) {
+			total += total_for(applicationNames.nextElement());
+		}
+		return total;
+	}
+	
+	private int called() {
+		Enumeration<String> applicationNames = applicationNames();
+		int total = 0;
+		while(applicationNames.hasMoreElements()) {
+			total += called_for(applicationNames.nextElement());
+		}
+		return total;
+	}
+	
+	private int coverage() {
+		return (called()*100)/total();
+	}
+	
+	private int total_for(String application) {
+		Hashtable<String, Summary> modules = applications.get(application);
+		int total = 0;
+		for (Summary summary : modules.values()) {
+			total += summary.called + summary.uncalled;
+		}
+		return total;
+	}
+
+	private int called_for(String application) {
+		Hashtable<String, Summary> modules = applications.get(application);
+		int total = 0;
+		for (Summary summary : modules.values()) {
+			total += summary.called;
+		}
+		return total;
+	}
+
+	private int coverage_for(String application, String module) {
+		Summary summary = applications.get(application).get(module);
+		return summary.called * 100 / (summary.called + summary.uncalled);
+		
+	}
+
+	private int total_for(String application, String module) {
+		Summary summary = applications.get(application).get(module);
+		return summary.called + summary.uncalled;
 	}
 }

@@ -11,31 +11,53 @@
     	${it.description}
       </div>
       
+      <j:invoke  var="total" on="${it.results}" method="total_as_string"/>
+      <j:invoke  var="called" on="${it.results}" method="called_as_string"/>
+      <j:invoke  var="coverage" on="${it.results}" method="coverage_as_string"/>
+      <j:invoke  var="uncoverage" on="${it.results}" method="uncoverage_as_string"/>
+      
       <table class="report">
         <thead>
-          <tr>
-            <td class='heading'>Application name</td>
-		    <td class='heading'>Total instructions</td>
-	    	<td class='heading'>Instructions called</td>
-	   		<td class='heading'>Code coverage</td>
-	  </tr>
-	</thead>
-	<tbody>
+        	<tr>
+		    	<td class='heading'>Total instructions</td>
+	    		<td class='heading'>Instructions called</td>
+	   			<td class='heading'>Code coverage</td>
+	   		</tr>
+		</thead>
+		<tbody>
+		    <tr>
+		      <td class="line">${total}</td>
+	    	  <td class="line">${called}</td>
+	    	  <erlcover:tableGraph coverage="${coverage}" uncoverage="${uncoverage}" />
+	    	</tr>
+		</tbody>
+	  </table>
+      
+      <table class="report">
+        <thead>
+        	<tr>
+            	<td class='heading'>Application name</td>
+		    	<td class='heading'>Total instructions</td>
+	    		<td class='heading'>Instructions called</td>
+	   			<td class='heading'>Code coverage</td>
+	   		</tr>
+		</thead>
+		<tbody>
 	  
 	  <j:invoke  var="applicationNames" on="${it.results}" method="applicationNames">
  	  </j:invoke>
 	  
 	  <j:forEach var="application" items="${applicationNames}">
-	    <j:invoke  var="total" on="${it.results}" method="total_for">
+	    <j:invoke  var="total" on="${it.results}" method="total_as_string_for">
 	      <j:arg type="java.lang.String" value="${application}"/>
 	    </j:invoke>
-	    <j:invoke  var="called" on="${it.results}" method="called_for">
+	    <j:invoke  var="called" on="${it.results}" method="called_as_string_for">
 	      <j:arg type="java.lang.String" value="${application}"/>
 	    </j:invoke>
-	    <j:invoke  var="uncoverage" on="${it.results}" method="uncoverage_for">
+	    <j:invoke  var="uncoverage" on="${it.results}" method="uncoverage_as_string_for">
 	      <j:arg type="java.lang.String" value="${application}"/>
 	    </j:invoke>
-	    <j:invoke  var="coverage" on="${it.results}" method="coverage_for">
+	    <j:invoke  var="coverage" on="${it.results}" method="coverage_as_string_for">
 	      <j:arg type="java.lang.String" value="${application}"/>
 	    </j:invoke>
 	    
@@ -46,13 +68,13 @@
 	      <erlcover:tableGraph coverage="${coverage}" uncoverage="${uncoverage}" />
 	    </tr>
 	  </j:forEach>
-	</tbody>
+	  </tbody>
       </table>
       
       <j:invoke  var="applicationNames" on="${it.results}" method="applicationNames">
       </j:invoke>
       <j:forEach var="application" items="${applicationNames}">
-	<a name='${application}'>
+      <a name='${application}'>
 	  <table class="report">
             <thead>
               <tr>
@@ -60,40 +82,40 @@
               </tr>
               <tr>
             	<td class='heading'>Module name</td>
-		<td class='heading'>Total instructions</td>
-		<td class='heading'>Instructions called</td>
-		<td class='heading'>Code coverage</td>
+				<td class='heading'>Total instructions</td>
+				<td class='heading'>Instructions called</td>
+				<td class='heading'>Code coverage</td>
 	      </tr>
 	    </thead>
 	    <tbody>
 	      <j:invoke  var="moduleNames" on="${it.results}" method="moduleNames">
- 		<j:arg type="java.lang.String" value="${application}"/>
+ 			<j:arg type="java.lang.String" value="${application}"/>
 	      </j:invoke>
 	      
 	      <j:forEach var="module" items="${moduleNames}">
-		<j:invoke  var="total" on="${it.results}" method="total_for">
-		  <j:arg type="java.lang.String" value="${application}"/>
-		  <j:arg type="java.lang.String" value="${module}"/>
-		</j:invoke>
-		<j:invoke  var="called" on="${it.results}" method="called_for">
-		  <j:arg type="java.lang.String" value="${application}"/>
-		  <j:arg type="java.lang.String" value="${module}"/>
-		</j:invoke>
-		<j:invoke  var="uncoverage" on="${it.results}" method="uncoverage_for">
-		  <j:arg type="java.lang.String" value="${application}"/>
-		  <j:arg type="java.lang.String" value="${module}"/>
-		</j:invoke>
-		<j:invoke  var="coverage" on="${it.results}" method="coverage_for">
-		  <j:arg type="java.lang.String" value="${application}"/>
-		  <j:arg type="java.lang.String" value="${module}"/>
-		</j:invoke>
+		  <j:invoke  var="total" on="${it.results}" method="total_as_string_for">
+		  	<j:arg type="java.lang.String" value="${application}"/>
+		  	<j:arg type="java.lang.String" value="${module}"/>
+		  </j:invoke>
+		  <j:invoke  var="called" on="${it.results}" method="called_as_string_for">
+		  	<j:arg type="java.lang.String" value="${application}"/>
+		  	<j:arg type="java.lang.String" value="${module}"/>
+		  </j:invoke>
+		  <j:invoke  var="uncoverage" on="${it.results}" method="uncoverage_as_string_for">
+		  	<j:arg type="java.lang.String" value="${application}"/>
+		  	<j:arg type="java.lang.String" value="${module}"/>
+		  </j:invoke>
+		  <j:invoke  var="coverage" on="${it.results}" method="coverage_as_string_for">
+		  	<j:arg type="java.lang.String" value="${application}"/>
+		  	<j:arg type="java.lang.String" value="${module}"/>
+		  </j:invoke>
 		
-		<tr>
-		  <td class="line">${module}</td>
-		  <td class="line">${total}</td>
-		  <td class="line">${called}</td>
-		  <erlcover:tableGraph coverage="${coverage}" uncoverage="${uncoverage}"/>
-		</tr>
+		  <tr>
+		  	<td class="line">${module}</td>
+		  	<td class="line">${total}</td>
+		  	<td class="line">${called}</td>
+		  	<erlcover:tableGraph coverage="${coverage}" uncoverage="${uncoverage}"/>
+		  </tr>
 	      </j:forEach>
 	    </tbody>
 	  </table>

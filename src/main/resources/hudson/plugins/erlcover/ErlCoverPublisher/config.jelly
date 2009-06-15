@@ -6,7 +6,6 @@
              such as 'lib/*/cover/cover_tools.xml'.
              Basedir of the fileset is &lt;a href='ws/'>the workspace root&lt;/a>.
            ">
-    <input class="setting-input" name="erlcover_includes"
-      type="text" value="${instance.includes}"/>
+    <input class="setting-input" name="erlcover_includes" type="text" value="${instance.includes}"/>
   </f:entry>
 </j:jelly>
