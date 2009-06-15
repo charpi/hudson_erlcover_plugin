@@ -1,3 +1,8 @@
+/** Copyright(c) 2009 Nicolas Charpentier
+    All rights reserved.
+    See file $TOP_DIR/COPYING.
+**/
+
 package hudson.plugins.erlcover;
 
 import hudson.model.AbstractProject;

@@ -1,0 +1,5 @@
+* Insert licence into soruce files
+* Add unittests on CoverResult.java
+* Add acceptance tests with selenium
+* Add historical trends
+* Be able to have several kind of coverage report (e.g unittests, acceptance tests)
